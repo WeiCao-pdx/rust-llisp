@@ -1,0 +1,12 @@
+[package]
+name = "little_lisp"
+version = "0.1.0"
+authors = ["ironwall <562524945@qq.com>"]
+edition = "2018"
+
+[[bin]]
+name = "little_lisp"
+path = 'src/main.rs'
+
+
+[dependencies]
