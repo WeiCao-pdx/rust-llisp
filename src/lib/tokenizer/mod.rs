@@ -1,3 +1,7 @@
+pub fn tokenize(a_str:&mut String) -> Vec<String>{
+  spliter(&pre_process(a_str), ' ')
+}
+//---------------------------------------------------
 pub fn find_symbol(a_str:&String, pos: i64, symbol:char) -> i64{
   let mut index = pos;
   loop{
@@ -28,7 +32,9 @@ pub fn find_symbol_is_not(a_str:&String, pos: i64, symbol:char) -> i64{
   }
   index
 }
-pub fn pre_process(a_str:&mut String){
+//---------------------------------------------------
+pub fn pre_process(a_str:&String) -> String{
+  let mut a_str = a_str.clone();
   loop{
     match a_str.chars().nth(0){
       None => break, 
@@ -50,17 +56,18 @@ pub fn pre_process(a_str:&mut String){
     a_str.insert(idxs[i] as usize +1, ' ');
     a_str.insert(idxs[i] as usize, ' ');
   }
-  println!("{}", a_str);
+  a_str
+  //println!("{}", a_str);
 }
 
-pub fn spliter(a_str: &String, symbol: char){
+pub fn spliter(a_str: &String, symbol: char) -> Vec<String>{
   let mut result:Vec<String> = Vec::new();
   let length = a_str.len() as i64;
   let mut index = find_symbol_is_not(a_str, 0, ' ');;
 
   while index < length{
     let end = find_symbol(a_str, index, symbol);
-    result.push(||->String{
+    let lex = ||->String{
       let mut substr = String::new();
       for i in index..end{
         let ch =  a_str.chars().nth(i as usize);
@@ -71,8 +78,11 @@ pub fn spliter(a_str: &String, symbol: char){
         }
       }
       substr
-    }());
+    }();
+    if lex != "\n"{
+      result.push(lex);
+    }
     index = find_symbol_is_not(a_str, end, ' ');
   }
-  println!("{:?}", result);
+  result
 }
