@@ -22,7 +22,7 @@ enum LList {
    * cons(1, cons(2, cons(3, nil)))*/
 }
 
-struct LinkList{
+pub struct LinkList{
   this: LList, 
   /* To make it more eaiser to use, the LList should be wrapped */
 }
